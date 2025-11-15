@@ -4,6 +4,7 @@ import { useMovieContext } from "../contexts/MovieContext";
 
 function NavBar(){
   const { reloadPopularMovies } = useMovieContext();
+  
     return(
         <nav className="navbar">
           <div className="navbar-brand">

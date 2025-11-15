@@ -2,12 +2,14 @@ import MovieCard from "../components/MovieCard";
 import { useState, useEffect } from "react";
 import { searchMovies, getPopularMovies } from "../services/api";
 import "../css/Home.css";
+import { useMovieContext } from "../contexts/MovieContext";
 
 function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { reloadPopularMovies } = useMovieContext();
 
   useEffect(() => {
     const loadPopularMovies = async () => {
@@ -23,7 +25,7 @@ function Home() {
     };
 
     loadPopularMovies();
-  }, []);
+  }, [reloadPopularMovies]);
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -59,9 +61,12 @@ function Home() {
       </form>
 
         {error && <div className="error-message">{error}</div>}
+        {!loading && !error && movies.length === 0 && searchQuery && (
+        <div className="no-movies">No Search Results Found</div>
+      )}
 
       {loading ? (
-        <div className="loading">Loading...</div>
+        <div className="no-movies">Loading...</div>
       ) : (
         <div className="movies-grid">
           {movies.map((movie) => (
