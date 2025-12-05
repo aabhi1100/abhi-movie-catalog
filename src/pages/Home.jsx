@@ -9,7 +9,7 @@ function Home() {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { reloadPopularMovies } = useMovieContext();
+  const { reloadFlag } = useMovieContext();
 
   useEffect(() => {
     const loadPopularMovies = async () => {
@@ -25,7 +25,7 @@ function Home() {
     };
 
     loadPopularMovies();
-  }, [reloadPopularMovies]);
+  }, [reloadFlag]);
 
   const handleSearch = async (e) => {
     e.preventDefault();
